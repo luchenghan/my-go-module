@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  mode: debug
+
+database:
+  dataSourceName: root:password@tcp(localhost:3306)/my_schema
+  maxOpenConns: 25
+  maxIdleConns: 25
+  connMaxLifetime: 5m
+
+logger:
+  level: debug
+  encoding: json
+
+jwt:
+  secret: mysecret
+  expiry: 3600

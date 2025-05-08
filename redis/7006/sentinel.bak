@@ -1,0 +1,4 @@
+port 7006
+sentinel monitor mymaster IP 7001 2
+sentinel down-after-milliseconds mymaster 5000
+sentinel failover-timeout mymaster 10000

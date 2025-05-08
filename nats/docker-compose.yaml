@@ -1,0 +1,34 @@
+services:
+  nats1:
+    image: nats:latest
+    container_name: nats1
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+    volumes:
+      - ./config/nats1.config:/nats.conf
+    command: "-c nats.conf"
+
+  nats2:
+    image: nats:latest
+    container_name: nats2
+    ports:
+      - "4223:4223"
+    volumes:
+      - ./config/nats2.config:/nats.conf
+    command: "-c nats.conf"
+
+  nats3:
+    image: nats:latest
+    container_name: nats3
+    ports:
+      - "4224:4224"
+    volumes:
+      - ./config/nats3.config:/nats.conf
+    command: "-c nats.conf"
+
+# Testing
+#  nats-box:
+#    image: natsio/nats-box
+#    tty: true
+#    depends_on: ["nats1", "nats2", "nats3"]

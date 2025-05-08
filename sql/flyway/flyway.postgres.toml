@@ -1,0 +1,11 @@
+[environments.development]
+url = "jdbc:postgresql://sql-postgres-1:5432/admin"
+user = "admin"
+password = "password"
+
+[flyway]
+environment = "development"
+baselineOnMigrate = true
+createSchemas = true
+defaultSchema = "my_schema"
+locations = ["filesystem:sql"]

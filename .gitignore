@@ -1,0 +1,7 @@
+.idea
+vendor
+arangodb/single/data
+arangodb/replication/data1
+arangodb/replication/data2
+monitor/grafana
+monitor/prometheus

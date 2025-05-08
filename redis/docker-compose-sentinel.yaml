@@ -1,0 +1,32 @@
+services:
+  sentinel1:
+    image: redis
+    container_name: redis-sentinel1
+    ports:
+      - "7004:7004"
+    volumes:
+      - ./7004:/usr/local/etc/redis
+    command: ["redis-sentinel", "/usr/local/etc/redis/sentinel.conf"]
+
+  sentinel2:
+    image: redis
+    container_name: redis-sentinel2
+    ports:
+      - "7005:7005"
+    volumes:
+      - ./7005:/usr/local/etc/redis
+    command: ["redis-sentinel", "/usr/local/etc/redis/sentinel.conf"]
+
+  sentinel3:
+    image: redis
+    container_name: redis-sentinel3
+    ports:
+      - "7006:7006"
+    volumes:
+      - ./7006:/usr/local/etc/redis
+    command: ["redis-sentinel", "/usr/local/etc/redis/sentinel.conf"]
+
+networks:
+  default:
+    name: redis_default
+    external: true

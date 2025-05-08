@@ -1,0 +1,36 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - ./prometheus:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - default
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./provisioning:/etc/grafana/provisioning
+      - ./grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana:/var/lib/grafana
+    networks:
+      - default
+
+  pyroscope:
+    image: grafana/pyroscope
+    container_name: pyroscope
+    ports:
+      - 4040:4040

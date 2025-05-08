@@ -1,0 +1,55 @@
+version: '3'
+services:
+  arangodb1:
+    container_name: leader
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    ports:
+      - "8529:8529"
+    networks:
+      - arangodb
+    command: arangod --server.authentication false
+      --server.endpoint tcp://0.0.0.0:8529
+      --cluster.my-address tcp://leader:8529
+      --cluster.my-role SINGLE
+      --cluster.agency-endpoint tcp://agent:5001
+      --replication.automatic-failover true
+      --database.directory singleserver
+  arangodb2:
+    container_name: follower
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    ports:
+      - "8530:8530"
+    networks:
+      - arangodb
+    command: arangod --server.authentication false
+      --server.endpoint tcp://0.0.0.0:8530
+      --cluster.my-address tcp://follower:8530
+      --cluster.my-role SINGLE
+      --cluster.agency-endpoint tcp://agent:5001
+      --replication.automatic-failover true
+      --database.directory singleserver
+  arangodb3:
+    container_name: agent
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    ports:
+      - "5001:5001"
+    networks:
+      - arangodb
+    command:  arangod --server.endpoint tcp://0.0.0.0:5001
+      --agency.my-address=tcp://agent:5001
+      --server.authentication false
+      --agency.activate true
+      --agency.endpoint tcp://agent:5001
+      --agency.size 1
+      --agency.supervision true
+      --agency.supervision-grace-period 15
+      --database.directory agent
+networks:
+  arangodb:
+    driver: 'bridge'

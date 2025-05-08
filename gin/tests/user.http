@@ -1,0 +1,33 @@
+### Create User
+POST http://localhost:8080/api/user
+Content-Type: application/json
+
+{
+    "name": "eric",
+    "email": "eric@example.com",
+    "password": "123456"
+}
+
+### Login
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "email": "eric@example.com",
+    "password": "123456"
+}
+
+> {%
+    client.global.set("auth_token", response.body.token);
+    client.global.set("user_id", response.body.user.id);
+%}
+
+### Get User
+GET http://localhost:8080/api/user/{{user_id}}
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+### Get Users
+GET http://localhost:8080/api/users
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}

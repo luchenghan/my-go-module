@@ -1,0 +1,88 @@
+services:
+  redis1:
+    container_name: redis1
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7001:7001"
+      - '17001:17001'
+    volumes:
+      - ./7001:/usr/local/etc
+    networks:
+      - proxy-network
+
+  redis2:
+    container_name: redis2
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7002:7002"
+      - "17002:17002"
+    volumes:
+      - ./7002:/usr/local/etc
+    networks:
+      - proxy-network
+
+  redis3:
+    container_name: redis3
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7003:7003"
+      - "17003:17003"
+    volumes:
+      - ./7003:/usr/local/etc
+    networks:
+      - proxy-network
+
+  redis4:
+    container_name: redis4
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7004:7004"
+      - "17004:17004"
+    volumes:
+      - ./7004:/usr/local/etc
+    networks:
+      - proxy-network
+
+  redis5:
+    container_name: redis5
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7005:7005"
+      - "17005:17005"
+    volumes:
+      - ./7005:/usr/local/etc
+    networks:
+      - proxy-network
+
+  redis6:
+    container_name: redis6
+    image: redis
+    command: redis-server /usr/local/etc/cluster.conf
+    stdin_open: true
+    tty: true
+    ports:
+      - "7006:7006"
+      - "17006:17006"
+    volumes:
+      - ./7006:/usr/local/etc
+    networks:
+      - proxy-network
+
+networks:
+  proxy-network:
+    driver: bridge

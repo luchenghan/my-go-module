@@ -1,0 +1,11 @@
+[environments.development]
+url = "jdbc:mysql://sql-mysql-1:3306?useSSL=false&allowPublicKeyRetrieval=true"
+user = "root"
+password = "password"
+
+[flyway]
+environment = "development"
+baselineOnMigrate = true
+createSchemas = true
+defaultSchema = "my_schema"
+locations = ["filesystem:sql"]
