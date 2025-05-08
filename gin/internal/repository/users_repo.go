@@ -2,7 +2,6 @@ package repository
 
 import (
 	"database/sql"
-	"errors"
 	"mymodule/gin/internal/db"
 	"mymodule/gin/internal/models"
 	"mymodule/gin/pkg/logger"
@@ -28,9 +27,6 @@ func (r *UsersRepository) GetUserByEmail(email string) (*models.User, error) {
 	user := &models.User{}
 	err := r.db.QueryRow(query, email).Scan(&user.ID, &user.Name, &user.Email, &user.Password)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return nil, err
-		}
 		return nil, err
 	}
 	return user, nil
@@ -46,9 +42,6 @@ func (r *UsersRepository) GetUserByID(id string) (*models.User, error) {
 	user := &models.User{}
 	err := r.db.QueryRow(query, id).Scan(&user.ID, &user.Name, &user.Email)
 	if err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
-			return nil, err
-		}
 		return nil, err
 	}
 	return user, nil
